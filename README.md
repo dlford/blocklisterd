@@ -20,7 +20,7 @@ Ubuntu
 
     - hosts: servers
       roles:
-         - role: dlford.blocklister
+         - role: dlford.blocklisterd
            vars:
              blocklisterd_major_version: v2
              blocklisterd_start_after:

@@ -74,6 +74,8 @@
     group: root
     mode: "0644"
   register: blocklisterd_service_file
+  notify:
+    - restart_blocklister
   tags:
     - blocklister
 

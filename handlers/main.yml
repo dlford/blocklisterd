@@ -3,4 +3,5 @@
   become: true
   service:
     name: blocklister.service
+    daemon_reload: "{{ blocklisterd_service_file.changed }}"
     state: restarted
