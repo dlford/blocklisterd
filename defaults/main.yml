@@ -1,4 +1,4 @@
 ---
-major_version: v2
-start_after:
+blocklisterd_major_version: v2
+blocklisterd_start_after:
   - network-online.target

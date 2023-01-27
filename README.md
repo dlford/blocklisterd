@@ -8,9 +8,9 @@ Ubuntu
 
 ## Role Variables
 
-- `config`: [Blocklister config object](https://github.com/dlford/blocklister/tree/v2#configuration)
-- `major_version`: (optional) Major release of Blocklister for updates, e.g. `v2`, [see all releases](https://github.com/dlford/blocklister/releases), defaults to `v2`
-- `start_after`: (optional) Applies to systemd service file, defaults to `[ "network-online.target" ]`, you should always include `network-online.target` if this value is changed
+- `blocklisterd_config`: [Blocklister config object](https://github.com/dlford/blocklister/tree/v2#configuration)
+- `blocklisterd_major_version`: (optional) Major release of Blocklister for updates, e.g. `v2`, [see all releases](https://github.com/dlford/blocklister/releases), defaults to `v2`
+- `blocklisterd_start_after`: (optional) Applies to systemd service file, defaults to `[ "network-online.target" ]`, you should always include `network-online.target` if this value is changed
 
 ## Dependencies
 
@@ -22,11 +22,11 @@ Ubuntu
       roles:
          - role: dlford.blocklister
            vars:
-             major_version: v2
-             start_after:
+             blocklisterd_major_version: v2
+             blocklisterd_start_after:
                - network-online.target
                - docker.service
-             config:
+             blocklisterd_config:
                schedule: "*/15 * * * *"
                lists:
                  - title: ipsum

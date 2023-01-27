@@ -12,16 +12,16 @@
 - name: check if Blocklister is already installed
   become: true
   stat:
-    path: "{{ install_path }}"
-  register: blocklister_installed_check
+    path: "{{ blocklisterd_install_path }}"
+  register: blocklisterd_installed_check
   tags:
     - blocklister
 
 - name: get Blocklister version
   become: true
-  command: "{{ install_path }} --version"
-  when: blocklister_installed_check.stat.exists
-  register: blocklister_installed_version
+  command: "{{ blocklisterd_install_path }} --version"
+  when: blocklisterd_installed_check.stat.exists
+  register: blocklisterd_installed_version
   changed_when: false
   tags:
     - blocklister
@@ -29,11 +29,11 @@
 - name: check latest Blocklister version in major_version
   shell: |
     curl -s https://api.github.com/repos/dlford/blocklister/releases \
-      | grep tag_name | grep {{ major_version }} | grep -v rc \
+      | grep tag_name | grep {{ blocklisterd_major_version }} | grep -v rc \
       | head -1 | cut -d : -f 2,3 | tr -d "\", "
   args:
     executable: /bin/bash
-  register: blocklister_latest_version
+  register: blocklisterd_latest_version
   changed_when: false
   tags:
     - blocklister
@@ -41,12 +41,12 @@
 - name: install Blocklister
   become: true
   get_url:
-    url: "https://github.com/dlford/blocklister/releases/download/{{ blocklister_latest_version.stdout }}/blocklister"
-    dest: "{{ install_path }}"
+    url: "https://github.com/dlford/blocklister/releases/download/{{ blocklisterd_latest_version.stdout }}/blocklister"
+    dest: "{{ blocklisterd_install_path }}"
     owner: root
     group: root
     mode: "0744"
-  when: blocklister_installed_check.stat.exists == false or blocklister_installed_version.stdout != blocklister_latest_version.stdout
+  when: blocklisterd_installed_check.stat.exists == false or blocklisterd_installed_version.stdout != blocklisterd_latest_version.stdout
   notify:
     - restart_blocklister
   tags:
@@ -55,8 +55,8 @@
 - name: install Blocklister config
   become: true
   copy:
-    content: "{{ config | to_yaml }}"
-    dest: "{{ config_path }}"
+    content: "{{ blocklisterd_config | to_yaml }}"
+    dest: "{{ blocklisterd_config_path }}"
     owner: root
     group: root
     mode: "0644"
@@ -73,7 +73,7 @@
     owner: root
     group: root
     mode: "0644"
-  register: blocklister_service_file
+  register: blocklisterd_service_file
   tags:
     - blocklister
 
@@ -81,7 +81,7 @@
   become: true
   systemd:
     name: blocklister.service
-    daemon_reload: "{{ blocklister_service_file.changed }}"
+    daemon_reload: "{{ blocklisterd_service_file.changed }}"
     enabled: true
     state: started
   tags:
