@@ -1,4 +1,4 @@
-# Role Name
+# Blocklisterd
 
 Install and configure [Blocklister](https://github.com/dlford/blocklister), a daemon written in Go for processing IP block list (TXT) files into iptables rules and keeping them updated regularly.
 
