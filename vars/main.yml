@@ -1,0 +1,3 @@
+---
+install_path: /usr/local/sbin/blocklister
+config_path: /etc/blocklister.yml

@@ -1,0 +1,14 @@
+galaxy_info:
+  author: dlford
+  description: Install and configure Blocklister, a daemon written in Go for processing IP block list (TXT) files into iptables rules and keeping them updated regularly.
+  license: MIT
+  min_ansible_version: "2.1"
+  platforms:
+    - name: Ubuntu
+      versions:
+        - all
+
+  galaxy_tags:
+    - blocklister
+    - blocklist
+    - iptables

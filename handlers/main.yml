@@ -1,0 +1,6 @@
+---
+- name: restart_blocklister
+  become: true
+  service:
+    name: blocklister.service
+    state: restarted

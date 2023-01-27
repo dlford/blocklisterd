@@ -1,0 +1,12 @@
+Description=Blocklister
+Documentation=https://github.com/dlford/blocklister
+After={{ start_after | join(' ') }}
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart={{ install_path }}
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
